@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#050507">
+<title>潮汐秘境助手 · 网页版</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <h1><span class="dia">◆</span>潮汐秘境助手 <small>网页版</small></h1>
+    <p class="sub">纯本地识别 · 不联网 · 不做任何点击操作</p>
+  </header>
+
+  <section class="card">
+    <div class="row">
+      <label class="btn primary" for="fileInput">选择游戏截图</label>
+      <input type="file" id="fileInput" accept="image/*" class="hidden">
+      <div class="selwrap">
+        <span class="sellabel">棋盘</span>
+        <select id="sizeSelect">
+          <option value="0">自动判断</option>
+          <option value="8">8 × 8</option>
+          <option value="10">10 × 10</option>
+          <option value="12">12 × 12</option>
+        </select>
+      </div>
+    </div>
+    <p class="hint" id="status">先截图，再点「选择游戏截图」。图片只在本机处理，不会上传。</p>
+  </section>
+
+  <section class="card hidden" id="resultCard">
+    <div class="meta" id="metaLine"></div>
+    <canvas id="canvas"></canvas>
+    <div class="legend">
+      <span><i class="sw g"></i>100% 必有钻石</span>
+      <span><i class="sw r"></i>≥60%</span>
+      <span><i class="sw y"></i>40~60%</span>
+      <span class="dim">低于 40% 不标注</span>
+    </div>
+  </section>
+
+  <section class="card hidden" id="rankCard">
+    <h2>挖掘建议（概率从高到低）</h2>
+    <ol class="rank" id="rankList"></ol>
+  </section>
+
+  <section class="card hidden" id="sumCard">
+    <h2>本图概况</h2>
+    <div class="sum" id="sumBox"></div>
+  </section>
+
+  <section class="card hidden" id="fixCard">
+    <h2>识别校对 <small class="dim">点格子即可改，改完自动重算</small></h2>
+    <p class="hint">点一下循环切换：? → . → 0…9 → X → G。<br>
+      <span class="dim">. 未翻开 ｜ 数字 已翻开 ｜ X 你标的叉 ｜ G 钻石</span></p>
+    <div class="bgrid" id="bgrid"></div>
+  </section>
+
+  <footer class="foot">潮汐秘境助手 · 网页版　|　仅做识别与概率建议</footer>
+</div>
+
+<script src="templates.js"></script>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

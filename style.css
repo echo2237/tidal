@@ -1,0 +1,209 @@
+/* 潮汐秘境助手 · 网页版 —— VoltAgent 深色系统（移动端优先） */
+
+:root {
+  --bg: #050507;          /* Abyss Black 窗口底 */
+  --panel: #101010;       /* Carbon Surface 卡片底 */
+  --sep: #3d3a39;         /* Warm Charcoal 描边/分隔 */
+  --text: #f2f2f2;        /* Snow White 正文 */
+  --dim: #b8b3b0;         /* Warm Parchment 次要 */
+  --dim2: #8b949e;        /* Steel Slate 元信息 */
+  --acc: #00d992;         /* Emerald Signal Green 强调 */
+  --mint: #2fd6a1;        /* 主按钮文字 */
+  --warn: #ffba00;        /* 琥珀 */
+  --bad: #fb565b;         /* 珊瑚红 */
+  --hover: #1a1a1a;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  overscroll-behavior-y: contain;
+}
+
+.wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 14px) 14px calc(env(safe-area-inset-bottom) + 20px);
+}
+
+/* ---------- 标题 ---------- */
+.head { padding: 4px 2px 12px; }
+.head h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+.head h1 .dia { color: var(--acc); margin-right: 6px; }
+.head h1 small { color: var(--dim2); font-size: 13px; font-weight: 400; margin-left: 6px; }
+.head .sub { margin: 6px 0 0; color: var(--dim2); font-size: 12.5px; }
+
+/* ---------- 卡片 ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--sep);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: .3px;
+}
+.card h2 small { font-weight: 400; margin-left: 8px; font-size: 12px; }
+.dim { color: var(--dim); }
+.hidden { display: none !important; }
+
+/* ---------- 按钮 / 控件 ---------- */
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-block;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--sep);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s ease;
+}
+.btn:active { background: var(--hover); }
+.btn.primary {
+  color: var(--mint);
+  border: 1px solid var(--acc);
+  font-weight: 600;
+}
+.btn.primary:active { background: #0d1f19; }
+
+.selwrap { display: flex; align-items: center; gap: 6px; }
+.sellabel { color: var(--dim); font-size: 13px; }
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--sep);
+  border-radius: 8px;
+  padding: 9px 30px 9px 12px;
+  font-size: 14px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--dim) 50%),
+                    linear-gradient(135deg, var(--dim) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.hint { margin: 10px 0 0; color: var(--dim); font-size: 12.5px; }
+.hint.err { color: var(--bad); }
+.hint.ok { color: var(--acc); }
+.hint.warn { color: var(--warn); }
+
+/* ---------- 画布 ---------- */
+#resultCard { padding: 12px; }
+.meta { color: var(--dim2); font-size: 12.5px; margin-bottom: 8px; }
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--sep);
+  border-radius: 8px;
+  background: #000;
+}
+
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--dim);
+}
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw.g { background: rgba(0, 217, 146, .45); border: 2px solid var(--acc); }
+.sw.r { background: transparent; border: 2px solid var(--bad); }
+.sw.y { background: transparent; border: 2px solid var(--warn); }
+
+/* ---------- 排行 ---------- */
+.rank { list-style: none; margin: 0; padding: 0; }
+.rank li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 1px solid var(--sep);
+  border-radius: 8px;
+  margin-bottom: 7px;
+  font-size: 14px;
+}
+.rank li .pos {
+  width: 22px;
+  text-align: center;
+  color: var(--dim2);
+  font-size: 12.5px;
+  flex: none;
+}
+.rank li .cell { flex: 1; }
+.rank li .pct { font-variant-numeric: tabular-nums; font-weight: 600; }
+.rank li.hi { border-color: var(--acc); }
+.rank li.hi .pct { color: var(--acc); }
+.rank li.mid .pct { color: var(--bad); }
+.rank li.low .pct { color: var(--warn); }
+
+/* ---------- 概况 ---------- */
+.sum { font-size: 13.5px; }
+.sum .line { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--sep); }
+.sum .line:last-child { border-bottom: none; }
+.sum .k { color: var(--dim); flex: none; }
+.sum .v { text-align: right; color: var(--text); word-break: break-all; }
+.sum .v.ok { color: var(--acc); }
+.sum .v.no { color: var(--bad); }
+
+/* ---------- 校正面板 ---------- */
+.bgrid {
+  display: grid;
+  gap: 3px;
+  margin-top: 10px;
+  --n: 12;
+}
+.bgrid button {
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid var(--sep);
+  border-radius: 5px;
+  background: #0b0b0d;
+  color: var(--text);
+  font-size: clamp(9px, 2.6vw, 13px);
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+.bgrid button.c-g { border-color: var(--acc); color: var(--acc); font-weight: 700; }
+.bgrid button.c-d { color: var(--text); font-weight: 600; }
+.bgrid button.c-dot { color: #4f9dff; }
+.bgrid button.c-x { color: var(--bad); }
+.bgrid button.c-q { color: var(--warn); }
+.bgrid button.c-z { color: var(--dim2); }
+
+/* ---------- 页脚 ---------- */
+.foot {
+  text-align: center;
+  color: var(--dim2);
+  font-size: 11.5px;
+  padding: 8px 0 2px;
+}
